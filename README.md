@@ -17,3 +17,5 @@ extensions are being developed:
 # How does it work
 When booting the codeklavier through the command line use the option -i <name_of_the_ini_file> syntax. For example
 `.\codeklavier -i ckar.ini`
+
+Don't forget to show both directories. So example is codeklavier.py -p hybrid -i ~/codeklavier-extensions/nieuwballet.ini
