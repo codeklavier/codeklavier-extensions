@@ -13,6 +13,7 @@ extensions are being developed:
 - Hydra (by Olivia Jack)
 - Mercury (by Timo Hoogland)
 - NieuwBallet (by Joana Chicau)
+- Fokker Organ (by Narcode)
 
 # How does it work
 When booting the codeklavier through the command line use the option -i <name_of_the_ini_file> syntax. For example
