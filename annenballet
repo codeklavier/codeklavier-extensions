@@ -105,7 +105,8 @@ mid_hi: 79
 
 [chordal main motifs midi]
 motif_1: 59, 62, 66, 60, 64, 67, 62, 69, 66
-motif_2: 70, 51, 62, 60, 44, 63, 66, 62, 55, 49
+set_pixel: 70, 51, 62, 60, 44, 63, 66, 62, 55, 49
+
 
 [melodic main motifs midi]
 quit: 36, 37, 38
@@ -162,9 +163,9 @@ openpop7: 36, 74
 closepopup: 36, 75
 warning: 36, 76
 blackOut: 81, 91, 93, 104
-offstage: 24, 25, 26
 move2: 61, 58, 63, 58
 scrollTop: 84, 89, 84, 91
+mini_set_pixel: 48, 49, 50, 51
 
 
 [chordal mini motifs]
@@ -202,8 +203,7 @@ click100: l[100].click();
 danseuse100: Danseuse_100();
 scrollTop:Temps_Levé();
 scrollBottom: à_Terre();
-blackOut: BlackOut();
-offstage: Offstage();
+blackOut: Offstage();
 reload: reEntrée_de_Ballet();
 shortcut_name1: cmd, alt, j
 shortcut_name2: cmd, shift, c
@@ -212,6 +212,7 @@ zoom out: Breathe_Out ()
 glossary: Glossary_of_the_Nieuw_Ballet ()
 closepopup: Finissage ()
 warning: Warning ()
+mini_set_pixel: //set pixel
 
 #conditionals
 conditional_1: setting up a conditional: IF number of \nnotes played is more than 100 in...
@@ -228,14 +229,17 @@ conditional_result_2_false: //nothing
 # (code to be evaluated after the normal code output, for example: for unmapping)
 # (duplicate names won't work!)
 mini_motif_1: ~map_rhythm = false; Ndef(\piano_fx).set(\rate, ~tremoloL1.linlin(1, 16, 1/2, 18));
+mini_set_pixel: callback mini
+
+[snippets for tremolos]
+mini_motif_1:
+mini_set_pixel: set tempo
 
 [snippets special flags]
 # motif name, flag [reset, ] , flag [motif_name to reset, ]
 conditional_result_2_true: reset, motif_1
 
 
-[snippets for tremolos]
-mini_motif_1: ~tremoloL1 =
 
 
 [conditionals settings]
@@ -252,6 +256,7 @@ conditional_3: range_less_than, 1
 #motif_name : display column id
 motif_1: 1
 adagio: 1
+mini_set_pixel: 2
 
 
 [motippets random limits]
