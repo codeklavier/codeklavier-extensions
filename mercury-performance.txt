@@ -1,0 +1,50 @@
+// 
+// Mercury CodeKlavier Collab
+// 
+
+set tempo 115
+set scale minor_harmonic c
+
+new sample bowl_hi name(bell) time(7) gain(1.5) speed(0.25) fx(reverb 1.5 18)
+	set bell fx(reverb 2 18)
+	set bell fx(delay 3/4 2/3 0.8)
+	set bell speed(0.25)
+	set bell fx(lfo 1/3 down)
+
+ring kickBeat hex(90000000)
+ring kickBeat hex(8890)
+new sample kick_909 name(kick) time(1/16) beat(kickBeat 2)
+
+// ring melody sine(20 1 0 12)
+ring melody sine(20 4.5 0 24)
+new synth sine name(tone) note(melody 2) time(1 1/16) shape(200 1)
+	set tone fx(delay 1/16 3/16 0.95)
+	set tone fx(reverb 0.8 17)
+	set tone shape(1 90) time(7/16 1/16)
+
+// ring chip sineFloat(24 0.1 0.7)
+new synth saw name(bass) shape(-1) time(2) fx(filter low 3 2400 90 0.4 0.5 0.1)
+	set bass wave2(square 0.4993) 
+	set bass fx(lfo 1/4 up)
+
+new sample hat_min time(1/4 1/8) gain(0.2) pan(random)
+
+// killAll
+// =======================
+// Hexadecimal Beats
+// 0 = 0 0 0 0
+// 1 = 0 0 0 1
+// 2 = 0 0 1 0
+// 3 = 0 0 1 1
+// 4 = 0 1 0 0
+// 5 = 0 1 0 1
+// 6 = 0 1 1 0
+// 7 = 0 1 1 1
+// 8 = 1 0 0 0
+// 9 = 1 0 0 1
+// a = 1 0 1 0
+// b = 1 0 1 1
+// c = 1 1 0 0
+// d = 1 1 0 1
+// e = 1 1 1 0
+// f > 1 1 1 1
