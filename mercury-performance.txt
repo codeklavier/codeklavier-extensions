@@ -29,6 +29,7 @@ new synth saw name(bass) shape(-1) time(2) fx(filter low 3 2400 90 0.4 0.5 0.1)
 
 new sample hat_min time(1/4 1/8) gain(0.2) pan(random)
 
+killAll
 // =======================
 // Hexadecimal Beats
 // 0 = 0 0 0 0
