@@ -38,13 +38,34 @@ pedal_midi_sostenuto: 66
 33: I
 34: N
 35: G
-48: Texts[0]=
-49: Texts[1]=
-50: Texts[2]=
-51: Texts[3]=
-52: Texts[4]=
-53: Texts[5]=
+56: space
+57: 0
+58: space
+59: 2
+60: 3
+61: w
+62: p
+63: s
+64: n
+65: d
+66: i
+67: m
+68: b
+70: n
+71: t
+73: o
+86: g
+88: n
+89: d
+90: a
+91: k
+92: h
+93: l
 95: backspace
+96: o
+97: c
+98: r
+105: .
 108: down
 toggle: 107
 
@@ -83,7 +104,9 @@ mid_low: 35
 mid_hi: 79
 
 [chordal main motifs midi]
+motif_1: 59, 62, 66, 60, 64, 67, 62, 69, 66
 set_pixel: 70, 51, 62, 60, 44, 63, 66, 62, 55, 49
+
 
 [melodic main motifs midi]
 quit: 36, 37, 38
@@ -105,24 +128,6 @@ conditional_result_5: 26,23,23
 
 [melodic mini motifs]
 adagio: 72, 71, 72, 71, 67, 64, 71, 69, 72, 71, 72, 71, 67, 64, 71
-set_pixel: //activate scroll
-mini_set_pixel: 48, 49, 50, 51
-scrollTop:Temps_Levé();
-scrollBottom: à_Terre();
-zoom in: Breathe (+100)
-zoom out: Breathe_Out (-100)
-historyBack: Arrière();
-historyForward: Avant();
-turn: Pirouette();
-pause: Pause_Pirouette();
-glossary: Glossary_of_the_Nieuw_Ballet ()
-silence: Silence ()
-blackOut: BlackOut();
-offstage: Offstage();
-reload: reEntrée_de_Ballet();
-closepopup: Finissage ()
-warning: Warning ()
-nodance: NoDance ()
 loadFunctionBody: 36, 41
 ecarte: 36, 42
 pauseAllonge: 36, 43
@@ -158,9 +163,9 @@ openpop7: 36, 74
 closepopup: 36, 75
 warning: 36, 76
 blackOut: 81, 91, 93, 104
-offstage: 24, 25, 26
 move2: 61, 58, 63, 58
 scrollTop: 84, 89, 84, 91
+mini_set_pixel: 48, 49, 50, 51
 
 
 [chordal mini motifs]
@@ -170,46 +175,44 @@ move: 44, 40, 47, 52
 backmove: 55, 58, 61, 63
 eval_manual: 67, 70, 73, 75
 
+
+
 [snippets code output]
 # motif_name : code output
 # (in this case javascript)
 # (duplicate names won't work!)
 # code + iframe here: https://github.com/JoBCB/NieuwBallet
 adagio: Adagio();
-set_pixel: //activate scroll
-mini_set_pixel: // scroll
-scrollTop:Temps_Levé();
-scrollBottom: à_Terre();
-zoom in: Breathe (+100)
-zoom out: Breathe_Out (-100)
-historyBack: Arrière();
-historyForward: Avant();
+loadFunctionBody: document.querySelector("#rso");
+ecarte: Écarté();
+pauseAllonge: Pause_Allongé();
 turn: Pirouette();
 pause: Pause_Pirouette();
-glossary: Glossary_of_the_Nieuw_Ballet ()
-silence: Silence ()
-blackOut: BlackOut();
-offstage: Offstage();
+derriere: Derrière();
+historyBack: Arrière();
+historyForward: Avant();
+# loadFunction html
+loadFunctionLinks: document.querySelector("#cnt");
+links: l = document.querySelectorAll("a");
+selectLink20:  l[20];
+selectLink50:  l[50];
+selectLink100:  l[100];
+click20: l[20].click();
+click50: l[50].click();
+click100: l[100].click();
+danseuse100: Danseuse_100();
+scrollTop:Temps_Levé();
+scrollBottom: à_Terre();
+blackOut: Offstage();
 reload: reEntrée_de_Ballet();
+shortcut_name1: cmd, alt, j
+shortcut_name2: cmd, shift, c
+zoom in: Breathe_In ()
+zoom out: Breathe_Out ()
+glossary: Glossary_of_the_Nieuw_Ballet ()
 closepopup: Finissage ()
 warning: Warning ()
-nodance: NoDance ()
-#shortcut_name1: cmd, alt, j
-#shortcut_name2: cmd, shift, c
-#loadFunctionBody: document.querySelector("#rso");
-#ecarte: Écarté();
-#pauseAllonge: Pause_Allongé();
-#derriere: Derrière();
-# loadFunction html
-#loadFunctionLinks: document.querySelector("#cnt");
-#links: l = document.querySelectorAll("a");
-#selectLink20:  l[20];
-#selectLink50:  l[50];
-#selectLink100:  l[100];
-#click20: l[20].click();
-#click50: l[50].click();
-#click100: l[100].click();
-#danseuse100: Danseuse_100();
+mini_set_pixel: //set pixel
 
 #conditionals
 conditional_1: setting up a conditional: IF number of \nnotes played is more than 100 in...
@@ -226,22 +229,17 @@ conditional_result_2_false: //nothing
 # (code to be evaluated after the normal code output, for example: for unmapping)
 # (duplicate names won't work!)
 mini_motif_1: ~map_rhythm = false; Ndef(\piano_fx).set(\rate, ~tremoloL1.linlin(1, 16, 1/2, 18));
+mini_set_pixel: callback mini
+
+[snippets for tremolos]
+mini_motif_1:
+mini_set_pixel: set tempo
 
 [snippets special flags]
 # motif name, flag [reset, ] , flag [motif_name to reset, ]
 conditional_result_2_true: reset, motif_1
-mini_set_pixel: callback mini
 
 
-
-[snippets for tremolos]
-# 3 values (also whitespace) separated by commas are allowed: the code expression to print, a prefix on the tremolo value, a suffix for the value.
-# there should be minumum 1 value.
-# example:
-# myvar = ,( , )
-# will result in myvar = ( 3 )
-mini_motif_1: ~tremoloL1 =,(,)
-mini_set_pixel: step
 
 
 [conditionals settings]
@@ -249,7 +247,9 @@ mini_set_pixel: step
 conditional_1: note_count, 0, 100
 conditional_2: range_more_than, 1
 conditional_3: range_less_than, 1
-# make volume
+# make volume,
+
+
 
 
 [motippets display settings]
@@ -257,7 +257,6 @@ conditional_3: range_less_than, 1
 motif_1: 1
 adagio: 1
 mini_set_pixel: 2
-
 
 
 [motippets random limits]
