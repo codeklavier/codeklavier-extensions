@@ -21,16 +21,19 @@ new sample tabla_hi name(tabla)
 // fx(reverb amp length)
 // amp:    |~1 to ~16+ => 0.5 to 2. @exp 2
 // length: |~1 to ~16+ => 1 to 16 @exp 1
-	set tabla fx(reverb ~8 ~18)
+	set tabla fx(reverb 0.8 ~18)
+	// set tabla fx(reverb ~8 ~18)
 
 // fx(delay division fb)
 // division: |~1 to ~16+ => 0.0626 to 1 @exp 2
-// feedback: |~1 to ~16| => 0.2 to 0.99 @exp 1
-	set tabla fx(delay ~3 ~8) gain(1)
+// feedback: |~1 to ~16| => 0.2 to 0.99 @exp 1 @default 0.8
+	set tabla fx(delay ~3)
+	// set tabla fx(delay ~3 ~8)
 
 // fx(lfo division wave)
 // division: |~1 to ~16| => 1/16 to 16/16 @exp 1
-// wave:     |~1 to ~5| => sine, down, up, square, triangle
-	set tabla fx(lfo ~2 ~4)
+// wave:     |~1 to ~5| => sine, down, up, square, triangle @default square
+	set tabla fx(lfo ~2)
+	// set tabla fx(lfo ~2 ~4)
 
 killAll
