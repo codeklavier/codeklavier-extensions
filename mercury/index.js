@@ -42,7 +42,7 @@ for (let i=0; i<keys.length; i++){
 	table2.push([keys[i], ...trillMap[keys[i]].slice(8, 16)]);
 }
 
-write("trillmap-list.md", table(table1) + "\n\n\n\n" + table(table2));
+write("./lib/trillmap-list.md", table(table1) + "\n\n\n\n" + table(table2));
 
 function write(file, text){
 	fs.writeFile(file, text, "utf8", (err) => {

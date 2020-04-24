@@ -4,19 +4,19 @@
 
 Example Mercury-code for the performance
 
-[mercury-performance.txt](./mercury-performance.txt)
+[mercury-performance.txt](./lib/mercury-performance.txt)
 
 ## Trillmap Table
 
 A table with all the trills and there corresponding parameter value per method.
 
-[trillmap-list.md](./trillmap-list.md)
+[trillmap-list.md](./lib/trillmap-list.md)
 
 ## Trillmap Example and Documentation
 
 The trillmaps in action with documentation. Load the file as external editor in Mercury or use as reference below.
 
-[mercury-trillmap-example.txt](./mercury-trillmap-doc.txt)
+[mercury-trillmap-example.txt](./lib/mercury-trillmap-example.txt)
 
 ```java
 // 
