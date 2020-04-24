@@ -1,5 +1,6 @@
 // 
 // Mercury CodeKlavier Collab
+// Performance example code
 // 
 
 set tempo 115

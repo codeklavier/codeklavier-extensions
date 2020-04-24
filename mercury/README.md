@@ -1,3 +1,24 @@
+# Mercury Codeklavier Extension
+
+## Performance Example Code
+
+Example Mercury-code for the performance
+
+[mercury-performance.txt](./mercury-performance.txt)
+
+## Trillmap Table
+
+A table with all the trills and there corresponding parameter value per method.
+
+[trillmap-list.md](./trillmap-list.md)
+
+## Trillmap Example and Documentation
+
+The trillmaps in action with documentation. Load the file as external editor in Mercury or use as reference below.
+
+[mercury-trillmap-example.txt](./mercury-trillmap-doc.txt)
+
+```java
 // 
 // Mapping trill values to parameters in methods for Mercury
 //
@@ -40,4 +61,10 @@ new sample tabla_hi name(tabla)
 	set tabla fx(lfo ~2)
 	// set tabla fx(lfo ~2 ~4)
 
-killAll
+new synth sine name(tone) time(~4) note(0 3) pan(random)
+// shape(attack release)
+// attack:  |~1 to ~16+ => 1 to 5000 ms @exp 3 : ~8 = 500
+// release: |~1 to ~16+ => 1 to 5000 ms @exp 3 : ~8 = 500
+	set tone shape(~2 ~5)
+	set tone fx(delay ~5 ~6 ~7)
+```
