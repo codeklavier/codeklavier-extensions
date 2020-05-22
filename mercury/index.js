@@ -7,7 +7,7 @@ let table = require('markdown-table');
 
 let scalings = {
 	"gain" : [1, 15, 0, 2, 1, false],
-	"time" : [1, 16, 0, 1, 1, false],
+	"speed" : [1, 16, 0.125, 2., 1, false],
 	"shape.attack" : [1, 16, 1, 5000, 3, false],
 	"shape.release" : [1, 16, 1, 5000, 3, false],
 	"reverb.amp" : [1, 16, 0.25, 2, 2, false],
@@ -32,7 +32,7 @@ for (let key in scl){
 	}
 	trillMap[scl[key]] = arr;
 }
-trillMap["speed"] = ["1/32", "1/24", "1/16", "1/8", "1/6", "1/4", "1/3", "1/2", "1" ,"2", "3", "4", "5", "6", "7", "8"];
+trillMap["time"] = ["1/32", "1/24", "1/16", "1/8", "1/6", "1/4", "1/3", "1/2", "1" ,"2", "3", "4", "5", "6", "7", "8"];
 
 let table1 = [];
 let table2 = [];
