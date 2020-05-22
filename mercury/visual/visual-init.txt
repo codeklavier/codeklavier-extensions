@@ -1,9 +1,12 @@
 set visuals multiples 1
 
-set visuals amount 4
+set visuals mp mesh texture white
+
+set visuals mp all amount 4
 set visuals mp all distance 3
 set visuals mp mesh scale 0.5
-set visuals mp all size random 0.7 1
+set visuals mp all size [random 0.3 0.7]
+// set visuals mp all size fixed
 
 set visuals mp all position random
 // set visuals mp all position fixed
@@ -14,7 +17,10 @@ set visuals mp all turn_speed fixed
 set visuals mp all turn 0.2 0.5 0.05
 set visuals mp all move 0.8 0 0
 
+set visuals mp mesh lighting_enable 0
+set visuals mp color saturation 1
 set visuals mp color alpha 0.5
 set visuals mp color lightness 0.5
 set visuals mp color hue 0.5
 set visuals mp color range 0.1
+
