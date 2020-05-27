@@ -1,0 +1,55 @@
+
+# Basic keywords used in Mercury for different instruments and settings
+# global settings
+22: volume #in floatingpoint amplitude => 'set volume 0.9'
+23: tempo #in bpm => 'set bpm 93'
+25: scale #scalename and root => 'set scale minor Ab'
+32: hipass #cutoff in Hz => 'set hipass 900'
+33: lopass #cutoff in Hz => 'set lopass 900'
+# start line with any of these 3 commands
+39: new #make a synth or sample
+42: set #change settings or methods for named-instruments
+44: ring #create/transform lists for melody/rhythm etc.
+# when line starts with 'new' -> choose instrument type
+49: synth
+50: sample
+# when line starts with 'ring <aVarName>' -> choose generator
+51: spreadInclusive() #spreadInclusive(5 0 12) => [0 3 6 9 12]
+52: spread() #spread(5 0 12) => [0 2 4 7 9]
+53: fill() #fill(10 2 20 3 30 1) => [10 10 20 20 20 30]
+# these need a ring as first argument, because they transfrom
+# eg. when 1 line up = 'ring myRing [1 2 3]'
+54: palindrome() #palindrome(myRing) => [1 2 3 3 2 1]
+56: clone() #clone(myRing 0 12 24) => [1 2 3 13 14 15 25 26 27]
+57: join() #join(myRing myRing) => [1 2 3 1 2 3]
+58: reverse() #reverse(myRing) => [3 2 1]
+59: rotate() #rotate(myRing 1) => [2 3 1]
+# when line starts with 'new synth' -> select waveshape
+60: saw
+61: square
+62: triangle
+63: sine
+# when line starts with 'new sample' -> select sample
+64: kick_909_dist
+65: snare_dnb
+66: hat_min
+67: hat_min_open
+68: kick_sub
+70: clap_min
+# use any of these methods on both sample/synth
+71: gain() #volume of the synth/sample
+73: time() #triggering speed (1/4, 1/8, 1/16, 1/12, 1=1bar etc.)
+86: beat() #play-or-not-to-play (1 = play all times, 0.5 = 50% of the time)
+88: shape() #envelope in ms, attack, decay
+89: name() #name of the instrument to reference to with 'set'
+# use this method on synth only
+90: note() #the pitch where (0 0) = 36 (C2), (0 1) > 48, (7 0) > 43
+# this method with any of the following keyword as argument for fx
+91: fx()
+92: reverb #fx(reverb 0.9 11) => 0.9=amplitude 11=length (0-20)
+93: delay #fx(delay 5/16 3/16 0.8) => pingpong-delay 5/16=delaytimeL/R 0.8=feedback
+95: double #fx(double) => Automated-Double-Tracking effect
+96: drive #fx(drive 10) => soft-clipping overdrive 10=distort amount (0 - inf)
+97: filter #fx(filter low 1000 0.8) => low=type (band/high/low), 1000=cutoff in Hz, 0.8 = resonance
+98: lfo #fx(lfo 1/8) => Low frequency oscillator, 1/8=lfo speed in bar-division
+# kill all the sound
