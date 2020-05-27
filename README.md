@@ -107,7 +107,7 @@ For example:
 
 `conditional_result_1_true: message, osc, eaxmple_endpoint, 1` 
 
-will send a 1 to the osc address `\example_endpoint`. So you could write your own OSC responders to do something with the incoming messages.
+will send a `'1'` to the osc address `\example_endpoint`. So you could write your own OSC responders to do something with the incoming messages.
 Here's an example of an OSC function that receives the incoming OSC in SuperCollider
 
 `OSCdef(\myoscResponder, {|msg, time, addr, recvPort|
