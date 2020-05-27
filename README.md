@@ -95,7 +95,7 @@ eg: mini_motif_scaled: 2
 
 ## Using OSC values for conditionals.
 The Codeklavier can send osc messages to localhost (127.0.0.1) in port 57210.
-In the you can define the osc_address/endpoint and the value to be sent. Options of values to be sent are:
+In the `[snippets code output]` you can define the osc_address/endpoint and the value to be sent. Options of values to be sent are:
 
 `grab_value` -> sends a value related to the conditional loop function. It changes every iteration depending on the piano playing.
 
@@ -103,6 +103,11 @@ In the you can define the osc_address/endpoint and the value to be sent. Options
 
 `randomN` -> a random number from a range as defined in the random section at the ini.
 
+For example:
+
+`conditional_result_1_true: message, osc, eaxmple_endpoint, 1` 
+
+will send a 1 to the osc address `\example_endpoint`. So you could write your own OSC responders to do something with the incoming messages.
 Here's an example of an OSC function that receives the incoming OSC in SuperCollider
 
 `OSCdef(\myoscResponder, {|msg, time, addr, recvPort|
