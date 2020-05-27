@@ -2,7 +2,7 @@ set visuals multiples 1
 
 set visuals mp mesh texture white
 
-set visuals mp all amount 4
+set visuals mp all amount 1
 set visuals mp all distance 3
 set visuals mp mesh scale 0.5
 set visuals mp all size [random 0.3 0.7]
@@ -23,4 +23,3 @@ set visuals mp color alpha 0.5
 set visuals mp color lightness 0.5
 set visuals mp color hue 0.5
 set visuals mp color range 0.1
-
