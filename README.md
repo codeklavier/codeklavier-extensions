@@ -87,4 +87,20 @@ eg: mini_motif_scaled: 2
 
 [motippets random limits] - this is primarily working with our own extensions. Only random has impact on the broader CK chord. The value for random determines the length of the perpetual conditionals loop
 
+## Using OSC values for conditionals.
+
+Here's an example for SuperCollider
+OSCdef(\myoscResponder, {|msg, time, addr, recvPort|
+	msg.postln;
+}, '/example_endpoint');
+
+FOr example if you want to value to go up in one increment you would use: 
+
+OSCdef(\myoscResponder, {|msg, time, addr, recvPort|
+	//msg.postln;
+	var value = msg[1].asFloat;
+	~store_value  = ~store_value + value;
+	~store_value.postln;
+}, '/example_endpoint');
+
 
