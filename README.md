@@ -20,6 +20,7 @@ When booting the codeklavier through the command line use the option -i <name_of
 `.\codeklavier -i ckar.ini`
 
 Don't forget to specify teh path to the .ini file. So example is 
+
 `codeklavier.py -p hybrid -i ~/codeklavier-extensions/nieuwballet.ini`
 
 ## Want to make your own extension?
@@ -103,6 +104,7 @@ In the you can define the osc_address/endpoint and the value to be sent. Options
 `randomN` -> a random number from a range as defined in the random section at the ini.
 
 Here's an example of an OSC function that receives the incoming OSC in SuperCollider
+
 `OSCdef(\myoscResponder, {|msg, time, addr, recvPort|
 	msg.postln;
 	// the value in msg[1] can be used in your code
