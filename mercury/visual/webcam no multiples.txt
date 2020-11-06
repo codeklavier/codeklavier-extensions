@@ -1,0 +1,13 @@
+ 
+
+set visuals plane 1
+
+set visuals webcam enable 1
+set visuals webcam saturation 0
+set visuals webcam brightness 1
+set visuals webcam contrast 1.1
+
+set visuals plane texture webcam
+
+
+
