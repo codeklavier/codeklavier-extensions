@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body>
+<canvas id="canvas" width="900" height="500"></canvas><br>
+</body>
+
+<script type="application/javascript">
+let ctx = document.getElementById('canvas').getContext('2d');
+ctx.globalCompositeOperation = 'destination-over';
+ctx.clearRect(0, 0, 900, 500); // clear canvas
+
+let x = {};
+let y = {};
+let colors = {0: "white", 1: "yellow", 2: "blue", 3: "red", 4: "green", 5: "orange", 6: "purple"};
+let _color = {};
+let shape = 1;
+let color_toggle=0;
+let total_shapes=[shape];
+
+for (var s=1; s<10; s++) { // 10 shapes for now
+  x[s] = 0;
+  y[s] = 0;
+  _color[s] = "white";
+}
+
+function totalShapesUpdate() {
+  if (!total_shapes.includes(shape)) {
+    total_shapes.push(shape);
+  }
+}
+
+function randomCoord(max=500) {
+  return Math.floor(Math.random() * max);
+}
+
+function square() {
+  ctx.clearRect(0, 0, 900, 500); // clear canvas
+
+  for (var s=0; s<total_shapes.length; s++) {
+    ctx.fillStyle = _color[s+1];
+    ctx.fillRect(x[s+1],y[s+1],100,100);
+    ctx.stroke();
+  };
+
+  window.requestAnimationFrame(square);
+  return "vierkantje"
+}
+
+function color() {
+  if (color_toggle > 6) {
+    color_toggle=0;
+  } else {
+    color_toggle++;
+  }
+  _color[shape] = colors[color_toggle];
+  return colors[color_toggle];
+}
+//
+// function circle(color) {
+//     ctx.clearRect(0, 0, 900, 500); // clear canvas
+//     var circle = new Path2D();
+//     circle.arc(100, 35, 25, 0, 2 * Math.PI);
+//     ctx.fill(circle);
+//
+//     window.requestAnimationFrame(circle);
+//     return color + " rondje"
+// }
+
+function black() {
+  let a = document.querySelector('html');
+  a.style.backgroundColor = "black";
+}
+
+
+</script>
+
+</html>
