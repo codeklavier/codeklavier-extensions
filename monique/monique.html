@@ -5,25 +5,32 @@
 </head>
 
 <body>
-<canvas id="canvas" width="900" height="500"></canvas><br>
+<canvas id="canvas" width="1200" height="900"></canvas><br>
 </body>
 
 <script type="application/javascript">
 let ctx = document.getElementById('canvas').getContext('2d');
 ctx.globalCompositeOperation = 'destination-over';
-ctx.clearRect(0, 0, 900, 500); // clear canvas
+ctx.clearRect(0, 0, 1200, 800); // clear canvas
 
 let x = {};
 let y = {};
+let wh = {};
+let scalex = {};
+let scaley = {};
 let colors = {0: "white", 1: "yellow", 2: "blue", 3: "red", 4: "green", 5: "orange", 6: "purple"};
 let _color = {};
-let shape = 1;
+let _scale = {};
+let shape = 0;
 let color_toggle=0;
-let total_shapes=[shape];
+let total_shapes=[];
 
 for (var s=1; s<10; s++) { // 10 shapes for now
-  x[s] = 0;
-  y[s] = 0;
+  x[s] = randomNum();
+  y[s] = randomNum();
+  wh[s] = randomNum(200);
+  scalex[s] = 1;
+  scaley[s] = 1;
   _color[s] = "white";
 }
 
@@ -33,31 +40,27 @@ function totalShapesUpdate() {
   }
 }
 
-function randomCoord(max=500) {
+function randomNum(max=500) {
   return Math.floor(Math.random() * max);
 }
 
 function square() {
-  ctx.clearRect(0, 0, 900, 500); // clear canvas
+  ctx.clearRect(0, 0, 1200, 800); // clear canvas
 
   for (var s=0; s<total_shapes.length; s++) {
     ctx.fillStyle = _color[s+1];
-    ctx.fillRect(x[s+1],y[s+1],100,100);
+    ctx.fillRect(x[s+1],y[s+1],wh[s+1],wh[s+1]);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "lighter"
+    // ctx.scale(scalex[s+1], scaley[s+1])
     ctx.stroke();
   };
 
   window.requestAnimationFrame(square);
-  return "vierkantje"
 }
 
-function color() {
-  if (color_toggle > 6) {
-    color_toggle=0;
-  } else {
-    color_toggle++;
-  }
-  _color[shape] = colors[color_toggle];
-  return colors[color_toggle];
+function color(color) {
+  _color[shape] = colors[color];
 }
 //
 // function circle(color) {
@@ -75,7 +78,7 @@ function black() {
   a.style.backgroundColor = "black";
 }
 
-
+square();
 </script>
 
 </html>
