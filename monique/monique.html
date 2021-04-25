@@ -5,38 +5,41 @@
 </head>
 
 <body>
-<canvas id="canvas" width="1200" height="900"></canvas><br>
+<canvas id="canvas" width="1250" height="480"></canvas><br>
 </body>
 
 <script type="application/javascript">
 let ctx = document.getElementById('canvas').getContext('2d');
 ctx.globalCompositeOperation = 'destination-over';
-ctx.clearRect(0, 0, 1200, 800); // clear canvas
+ctx.clearRect(0, 0, 1250, 480); // clear canvas
 
 let x = {};
 let y = {};
-let wh = {};
-let scalex = {};
-let scaley = {};
+let w = {};
+let h = {};
+let rotation = {};
 let colors = {0: "white", 1: "yellow", 2: "blue", 3: "red", 4: "green", 5: "orange", 6: "purple"};
+let shapes = {0: "vierkant", 1: "rond", 2: "driehoek"};
+let _shapes = {}
 let _color = {};
-let _scale = {};
 let shape = 0;
 let color_toggle=0;
 let total_shapes=[];
 
-for (var s=1; s<10; s++) { // 10 shapes for now
+for (var s=1; s<10; s++) { // initialize 10 shapes
   x[s] = randomNum();
   y[s] = randomNum();
-  wh[s] = randomNum(200);
-  scalex[s] = 1;
-  scaley[s] = 1;
+  w[s] = randomNum(200);
+  h[s] = w[s];
+  rotation[s] = 0;
   _color[s] = "white";
+  _shapes[s] = "vierkant";
 }
 
 function totalShapesUpdate() {
   if (!total_shapes.includes(shape)) {
     total_shapes.push(shape);
+    return "object: " + shape;
   }
 }
 
@@ -44,24 +47,61 @@ function randomNum(max=500) {
   return Math.floor(Math.random() * max);
 }
 
-function square() {
-  ctx.clearRect(0, 0, 1200, 800); // clear canvas
+function drawShape() {
+  ctx.clearRect(0, 0, 1250, 480); // clear canvas
 
   for (var s=0; s<total_shapes.length; s++) {
+    ctx.save();
     ctx.fillStyle = _color[s+1];
-    ctx.fillRect(x[s+1],y[s+1],wh[s+1],wh[s+1]);
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = "lighter"
-    // ctx.scale(scalex[s+1], scaley[s+1])
-    ctx.stroke();
-  };
 
-  window.requestAnimationFrame(square);
+    if (_shapes[s+1] == "vierkant") {
+      if (rotation[s+1] != 0)  {
+        let middleh = y[s+1]+(h[s+1]/2)
+        let middlew = x[s+1]+(w[s+1]/2)
+        ctx.translate(x[s+1],y[s+1]);
+        ctx.rotate(rotation[s+1] * Math.PI / 180);
+        ctx.translate(middlew, middleh);
+        ctx.fillRect(-middlew,-middleh,w[s+1],h[s+1]);
+      } else {
+        ctx.fillRect(x[s+1],y[s+1],w[s+1],h[s+1]);
+      }
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+      ctx.restore();
+      ctx.globalCompositeOperation = "lighter";
+    };
+
+    if (_shapes[s+1] == "rond") {
+      var circle = new Path2D();
+      let middleh = y[s+1]+(h[s+1]/2)
+      let middlew = x[s+1]+(w[s+1]/2)
+      circle.arc(middlew,middleh, w[s+1], 0, 2 * Math.PI);
+      ctx.fill(circle);
+    };
+
+    if (_shapes[s+1] == "driehoek") {
+      var triangle = new Path2D();
+      let height = h[s+1] * Math.cos(Math.PI / 6);
+      triangle.moveTo(x[s+1], y[s+1]+h[s+1]);
+      triangle.lineTo(x[s+1]+w[s+1], y[s+1]+h[s+1]);
+      triangle.lineTo(x[s+1]+(w[s+1]/2), y[s+1]-height)
+      triangle.closePath();
+      ctx.fill(triangle);
+    };
+
+  }
+
+  window.requestAnimationFrame(drawShape);
 }
 
 function color(color) {
-  _color[shape] = colors[color];
+  _color[shape] = color;
 }
+
+function shapeShift(shapename) {
+  _shapes[shape] = shapename;
+}
+
 //
 // function circle(color) {
 //     ctx.clearRect(0, 0, 900, 500); // clear canvas
@@ -78,7 +118,7 @@ function black() {
   a.style.backgroundColor = "black";
 }
 
-square();
+drawShape();
 </script>
 
 </html>
