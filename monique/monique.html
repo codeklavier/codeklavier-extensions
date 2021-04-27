@@ -43,27 +43,27 @@ function totalShapesUpdate() {
   }
 }
 
-function randomNum(max=500) {
+function randomNum(max=420) {
   return Math.floor(Math.random() * max);
 }
 
 function drawShape() {
   ctx.clearRect(0, 0, 1250, 480); // clear canvas
 
-  for (var s=0; s<total_shapes.length; s++) {
+  total_shapes.forEach(s => {
     ctx.save();
-    ctx.fillStyle = _color[s+1];
+    ctx.fillStyle = _color[s];
 
-    if (_shapes[s+1] == "vierkant") {
-      if (rotation[s+1] != 0)  {
-        let middleh = y[s+1]+(h[s+1]/2)
-        let middlew = x[s+1]+(w[s+1]/2)
-        ctx.translate(x[s+1],y[s+1]);
-        ctx.rotate(rotation[s+1] * Math.PI / 180);
+    if (_shapes[s] == "vierkant") {
+      if (rotation[s] != 0)  {
+        let middleh = y[s]+(h[s]/2)
+        let middlew = x[s]+(w[s]/2)
+        ctx.translate(x[s],y[s]);
+        ctx.rotate(rotation[s] * Math.PI / 180);
         ctx.translate(middlew, middleh);
-        ctx.fillRect(-middlew,-middleh,w[s+1],h[s+1]);
+        ctx.fillRect(-middlew,-middleh,w[s],h[s]);
       } else {
-        ctx.fillRect(x[s+1],y[s+1],w[s+1],h[s+1]);
+        ctx.fillRect(x[s],y[s],w[s],h[s]);
       }
       ctx.globalAlpha = 1;
       ctx.stroke();
@@ -71,25 +71,25 @@ function drawShape() {
       ctx.globalCompositeOperation = "lighter";
     };
 
-    if (_shapes[s+1] == "rond") {
+    if (_shapes[s] == "rond") {
       var circle = new Path2D();
-      let middleh = y[s+1]+(h[s+1]/2)
-      let middlew = x[s+1]+(w[s+1]/2)
-      circle.arc(middlew,middleh, w[s+1], 0, 2 * Math.PI);
+      let middleh = y[s]+(h[s]/2)
+      let middlew = x[s]+(w[s]/2)
+      circle.arc(middlew,middleh, w[s], 0, 2 * Math.PI);
       ctx.fill(circle);
     };
 
-    if (_shapes[s+1] == "driehoek") {
+    if (_shapes[s] == "driehoek") {
       var triangle = new Path2D();
-      let height = h[s+1] * Math.cos(Math.PI / 6);
-      triangle.moveTo(x[s+1], y[s+1]+h[s+1]);
-      triangle.lineTo(x[s+1]+w[s+1], y[s+1]+h[s+1]);
-      triangle.lineTo(x[s+1]+(w[s+1]/2), y[s+1]-height)
+      let height = h[s] * Math.cos(Math.PI / 6);
+      triangle.moveTo(x[s], y[s]+h[s]);
+      triangle.lineTo(x[s]+w[s], y[s]+h[s]);
+      triangle.lineTo(x[s]+(w[s]/2), y[s]-height)
       triangle.closePath();
       ctx.fill(triangle);
     };
 
-  }
+  });
 
   window.requestAnimationFrame(drawShape);
 }
@@ -101,17 +101,6 @@ function color(color) {
 function shapeShift(shapename) {
   _shapes[shape] = shapename;
 }
-
-//
-// function circle(color) {
-//     ctx.clearRect(0, 0, 900, 500); // clear canvas
-//     var circle = new Path2D();
-//     circle.arc(100, 35, 25, 0, 2 * Math.PI);
-//     ctx.fill(circle);
-//
-//     window.requestAnimationFrame(circle);
-//     return color + " rondje"
-// }
 
 function black() {
   let a = document.querySelector('html');
