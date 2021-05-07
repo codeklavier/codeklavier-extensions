@@ -53,22 +53,20 @@ function drawShape() {
   total_shapes.forEach(s => {
     ctx.save();
     ctx.fillStyle = _color[s];
+    let middleh = y[s]+(h[s]/2)
+    let middlew = x[s]+(w[s]/2)
 
     if (_shapes[s] == "vierkant") {
       if (rotation[s] != 0)  {
-        let middleh = y[s]+(h[s]/2)
-        let middlew = x[s]+(w[s]/2)
-        ctx.translate(x[s],y[s]);
-        ctx.rotate(rotation[s] * Math.PI / 180);
         ctx.translate(middlew, middleh);
+        ctx.rotate(rotation[s] * Math.PI / 180);
+        ctx.translate(x[s],y[s]);
         ctx.fillRect(-middlew,-middleh,w[s],h[s]);
       } else {
         ctx.fillRect(x[s],y[s],w[s],h[s]);
       }
       ctx.globalAlpha = 1;
       ctx.stroke();
-      ctx.restore();
-      ctx.globalCompositeOperation = "lighter";
     };
 
     if (_shapes[s] == "rond") {
@@ -82,15 +80,27 @@ function drawShape() {
     if (_shapes[s] == "driehoek") {
       var triangle = new Path2D();
       let height = h[s] * Math.cos(Math.PI / 6);
-      triangle.moveTo(x[s], y[s]+h[s]);
-      triangle.lineTo(x[s]+w[s], y[s]+h[s]);
-      triangle.lineTo(x[s]+(w[s]/2), y[s]-height)
+      if (rotation[s] != 0)  {
+        ctx.translate(middlew, middleh);
+        ctx.rotate(rotation[s] * Math.PI / 180);
+        ctx.translate(x[s],y[s]);
+        triangle.moveTo(-middlew, -middleh+h[s]);
+        triangle.lineTo(-middlew+w[s], -middleh+h[s]);
+        triangle.lineTo(-middlew+(w[s]/2), -middleh-height)
+      } else {
+        triangle.moveTo(x[s], y[s]+h[s]);
+        triangle.lineTo(x[s]+w[s], y[s]+h[s]);
+        triangle.lineTo(x[s]+(w[s]/2), y[s]-height)
+      }
+
       triangle.closePath();
       ctx.fill(triangle);
     };
 
+      ctx.restore();
   });
 
+  ctx.globalCompositeOperation = "lighter";
   window.requestAnimationFrame(drawShape);
 }
 
