@@ -73,9 +73,9 @@ function drawShape() {
 
     if (_shapes[s] == "rond") {
       var circle = new Path2D();
-      let middleh = y[s]+(h[s]/2)
-      let middlew = x[s]+(w[s]/2)
-      circle.arc(middlew,middleh, w[s], 0, 2 * Math.PI);
+      let middleh = y[s]+Math.abs(h[s]/2);
+      let middlew = x[s]+Math.abs(w[s]/2);
+      circle.arc(middlew,middleh, Math.abs(w[s]), 0, 2 * Math.PI);
       ctx.fill(circle);
     };
 
@@ -122,6 +122,7 @@ function black() {
 function autoRotate(speed=1, direction='clockwise') {
   let deg = 0;
   let localshape = shape
+  stopLoop(_timeLoops[shape]);
   _timeLoops[shape] = setInterval( () => {
     if (Math.abs(deg) == 360) {
       deg = 0;
