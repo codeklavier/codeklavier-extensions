@@ -1,0 +1,225 @@
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body>
+<canvas id="canvas" width="1250" height="480"></canvas><br>
+<canvas id="anim" width="1250" height="480"></canvas><br>
+</body>
+
+<script type="application/javascript">
+let ctx = document.getElementById('canvas').getContext('2d');
+let a_ctx = document.getElementById('canvas').getContext('2d');
+ctx.globalCompositeOperation = 'destination-over';
+a_ctx.globalCompositeOperation = 'destination-over';
+
+let x = {};
+let y = {};
+let w = {};
+let h = {};
+let rotation = {};
+let colors = {0: "white", 1: "yellow", 2: "blue", 3: "red", 4: "green", 5: "orange", 6: "purple"};
+let shapes = {0: "vierkant", 1: "rond", 2: "driehoek"};
+let _shapes = {}
+let _color = {};
+let shape = 0;
+let color_toggle=0;
+let total_shapes=[];
+let _timeLoops = {}
+
+for (var s=1; s<10; s++) { // initialize 10 shapes
+  x[s] = randomNum() + 5;
+  y[s] = randomNum() + 5;
+  w[s] = randomNum(200);
+  h[s] = w[s];
+  rotation[s] = 0;
+  _color[s] = "white";
+  _shapes[s] = "vierkant";
+  _timeLoops[s] = function(){};
+}
+
+function totalShapesUpdate() {
+  if (!total_shapes.includes(shape)) {
+    total_shapes.push(shape);
+  }
+  draw();
+  return debugShape();
+}
+
+function randomNum(max=420) {
+  return Math.floor(Math.random() * max);
+}
+
+function drawShape(s) {
+  ctx.clearRect(0, 0, 1250, 480); // clear canvas
+  total_shapes.forEach(s => {
+    ctx.save();
+    ctx.fillStyle = _color[s];
+    let middleh = y[s]+(h[s]/2)
+    let middlew = x[s]+(w[s]/2)
+
+    if (_shapes[s] == "vierkant") {
+      if (rotation[s] != 0)  {
+        ctx.translate(middlew, middleh);
+        ctx.rotate(rotation[s] * Math.PI / 180);
+        ctx.translate(x[s],y[s]);
+        ctx.fillRect(-middlew,-middleh,w[s],h[s]);
+      } else {
+        ctx.fillRect(x[s],y[s],w[s],h[s]);
+      }
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+    };
+
+    if (_shapes[s] == "rond") {
+      var circle = new Path2D();
+      let middleh = y[s]+Math.abs(h[s]/2);
+      let middlew = x[s]+Math.abs(w[s]/2);
+      circle.arc(middlew,middleh, Math.abs(w[s]), 0, 2 * Math.PI);
+      ctx.fill(circle);
+    };
+
+    if (_shapes[s] == "driehoek") {
+      var triangle = new Path2D();
+      let height = h[s] * Math.cos(Math.PI / 6);
+      if (rotation[s] != 0)  {
+        ctx.translate(middlew, middleh);
+        ctx.rotate(rotation[s] * Math.PI / 180);
+        ctx.translate(x[s],y[s]);
+        triangle.moveTo(-middlew, -middleh+h[s]);
+        triangle.lineTo(-middlew+w[s], -middleh+h[s]);
+        triangle.lineTo(-middlew+(w[s]/2), -middleh-height)
+      } else {
+        triangle.moveTo(x[s], y[s]+h[s]);
+        triangle.lineTo(x[s]+w[s], y[s]+h[s]);
+        triangle.lineTo(x[s]+(w[s]/2), y[s]-height)
+      }
+
+      triangle.closePath();
+      ctx.fill(triangle);
+    };
+    ctx.restore();
+  });
+
+  ctx.globalCompositeOperation = "lighter";
+}
+
+function draw() {
+  window.requestAnimationFrame(function(){
+    drawShape(shape);
+  });
+}
+
+function animateDraw() {
+  window.requestAnimationFrame(function(){
+    drawShape(shape);
+    animateDraw();
+  });
+}
+
+function color(color) {
+  _color[shape] = color;
+  draw();
+  return debugShape();
+}
+
+function shapeShift(shapename) {
+  _shapes[shape] = shapename;
+  draw();
+  return debugShape();
+}
+
+function black() {
+  let a = document.querySelector('html');
+  a.style.backgroundColor = "black";
+}
+
+function stR(val) {
+  x[shape] = x[shape] + val;
+  draw();
+  return debugShape("RECHTS");
+}
+
+function stL(val) {
+  x[shape] = x[shape] - val;
+  draw();
+  return debugShape("LINKS");
+}
+
+function stU(val) {
+  y[shape] = y[shape] + val;
+  draw();
+  return debugShape("BENEDEN");
+}
+
+function stD(val) {
+  y[shape] = y[shape] - val;
+  draw();
+  return debugShape("BOVEN");
+}
+
+function stLG(val) {
+  h[shape] = h[shape] + val;
+  draw();
+  return debugShape("LENGTE GROTER");
+}
+
+function stLK(val) {
+  h[shape] = h[shape] - val;
+  draw();
+  return debugShape("LENGTE KLEINER");
+}
+
+function stBG(val) {
+  w[shape] = w[shape] + val;
+  draw();
+  return debugShape("VERGROTEN");
+}
+
+function stBK(val) {
+  w[shape] = w[shape] - val;
+  draw();
+  return debugShape("BREEDTE KLEINER");
+}
+
+function stRR(val) {
+  rotation[shape] = rotation[shape] + val;
+  draw();
+  return debugShape("ROTATIE RECHTS");
+}
+
+function stRL(val) {
+  rotation[shape] = rotation[shape] - val;
+  draw();
+  return debugShape("ROTATIE LINKS");
+}
+
+function debugShape(move="") {
+  return "num: " + shape + ", kleur: " + _color[shape] + ", vorm: " + _shapes[shape] + ", " + move;
+}
+
+function autoRotate(speed=1, direction='clockwise') {
+  let deg = 0;
+  let localshape = shape
+  stopLoop(_timeLoops[shape]);
+  _timeLoops[shape] = setInterval( () => {
+    if (Math.abs(deg) == 360) {
+      deg = 0;
+    } else {
+      if (direction == 'clockwise') {
+        rotation[localshape] = deg++;
+      } else {
+        rotation[localshape] = deg--;
+      }
+    }
+  }, speed * randomNum(100));
+}
+
+function stopLoop() {
+  clearInterval(_timeLoops[shape]);
+}
+</script>
+
+</html>
