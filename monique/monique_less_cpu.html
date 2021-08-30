@@ -30,7 +30,7 @@ let total_shapes=[];
 let _timeLoops = {}
 
 for (var s=1; s<10; s++) { // initialize 10 shapes
-  x[s] = randomNum() + 5;
+  x[s] = randomNum(1100) + 5;
   y[s] = randomNum() + 5;
   w[s] = randomNum(200);
   h[s] = w[s];
@@ -48,7 +48,7 @@ function totalShapesUpdate() {
   return debugShape();
 }
 
-function randomNum(max=420) {
+function randomNum(max=400) {
   return Math.floor(Math.random() * max);
 }
 
